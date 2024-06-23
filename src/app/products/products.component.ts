@@ -15,6 +15,7 @@ export class ProductsComponent implements OnInit {
   products!: Array<Product>;
   errorMessage!: string;
   searchFormGroup!: FormGroup;
+  pageProduct!: PageProduct;
 
   constructor(
     private productService: ProductService,
@@ -29,9 +30,11 @@ export class ProductsComponent implements OnInit {
   }
 
   handleGetAllProducts() {
-    this.productService.getProducts().subscribe({
+    this.productService.getPageProducts(1, 3).subscribe({
       next: (data) => {
-        this.products = data;
+        this.pageProduct = data;
+        console.log(data);
+        this.products = this.pageProduct.products;
       },
       error: (err) => {
         this.errorMessage = err;
@@ -73,5 +76,5 @@ export class ProductsComponent implements OnInit {
       });
   }
 }
-import { Product } from '../models/product.model';
+import { PageProduct, Product } from '../models/product.model';
 import { FormBuilder, FormGroup } from '@angular/forms';
