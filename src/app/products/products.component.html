@@ -1,0 +1,56 @@
+<div class="container">
+  <!-- <div *ngIf="errorMessage">
+    <h6 class="text-danger">{{ errorMessage }}</h6>
+  </div> -->
+  <ng-template #errors>
+    <h6 class="text-danger">{{ errorMessage }}</h6>
+  </ng-template>
+  <div class="card" *ngIf="products; else errors">
+    <div class="card-header">Liste des produits</div>
+
+    <div class="card-content">
+      <form action="">
+        <div class="input-group">
+          <label for="" class="input-group-text">Key Word</label>
+          <input type="text" class="form-control" />
+          <button class="btn btn-info"><i class="bi bi-search"></i></button>
+        </div>
+      </form>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let product of products">
+            <td>{{ product.id }}</td>
+            <td>{{ product.name }}</td>
+            <td>{{ product.price }}</td>
+            <td>
+              <button
+                class="btn btn-danger"
+                (click)="handleDeleteProduct(product)"
+              >
+                <i class="bi bi-trash"></i>
+              </button>
+            </td>
+            <td>
+              <i
+                class="bi"
+                [ngClass]="
+                  product.promotion
+                    ? 'text-success  bi-heart-fill'
+                    : 'text-secondary  bi-heart'
+                "
+                (click)="handleSetPromotion(product)"
+              ></i>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
