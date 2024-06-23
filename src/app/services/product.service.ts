@@ -15,7 +15,7 @@ export class ProductService {
   }
 
   getProducts(): Observable<Product[]> {
-    if (Math.random() < 0.5)
+    if (Math.random() < 0.1)
       return throwError(() => new Error('Internet connexion'));
     return of(this.products);
   }
@@ -29,5 +29,12 @@ export class ProductService {
     product.promotion = !product.promotion;
     this.products[id] = product;
     return of(true);
+  }
+  searchProduct(keyword: string): Observable<Product[]> {
+    return of(
+      this.products.filter((product) =>
+        product.name.toLowerCase().includes(keyword.toLowerCase())
+      )
+    );
   }
 }
